@@ -4,9 +4,10 @@ import java.util.Collection;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Soldier extends LivingGameObject implements SimulatableObject{
+public class Soldier extends LivingGameObject{
 	public static final float WIDTH = 10f;
 	public static final float HEIGHT = 20f;
+	public static final float LIFE = 20f;
 	
 	public static enum SoldierState{
 		WALK,SHOT,DEAD
@@ -24,7 +25,7 @@ public class Soldier extends LivingGameObject implements SimulatableObject{
 	public float defense;
 	
 	public Soldier(float x,float y,SoldierType type,boolean faceLeft,float defense,Vector2 speed){
-		super(x,y,WIDTH,HEIGHT);
+		super(x, y, WIDTH, HEIGHT, LIFE);
 		this.type = type;
 		this.state = SoldierState.WALK;
 		this.faceLeft = faceLeft;
@@ -37,18 +38,22 @@ public class Soldier extends LivingGameObject implements SimulatableObject{
 		this.weapon.setOwner(this);
 	}
 
-	@Override
 	public void next(float delta, Collection<Bullet> bullets, Collection<Soldier> enemies) {
-		this.shape.x = this.shape.x + this.speed.x*delta;
 		if(this.weapon.canShoot(enemies)) {
-			Bullet bullet = this.weapon.fireWeapon();
-			if(bullet != null) {
-				bullets.add(bullet);
-			}
 			setShooting();
 		}
 		else {
 			setWalking();
+		}
+		
+		if(this.state == SoldierState.WALK) {
+			this.shape.x = this.shape.x + this.speed.x*delta;
+		}
+		else if(this.state == SoldierState.SHOT) {
+			Bullet bullet = this.shoot();
+			if(bullet != null) {
+				bullets.add(bullet);
+			}
 		}
 	}
 	
@@ -64,15 +69,27 @@ public class Soldier extends LivingGameObject implements SimulatableObject{
 		timeFrame = 0;
 	}
 	
+	public void setDead() {
+		this.state = SoldierState.DEAD;
+		keyFrame = 0;
+		timeFrame = 0;
+	}
+	
 	public boolean canShoot(Collection<Soldier> enemies){
 		return weapon.canShoot(enemies);
 	}
 	
-	public void shoot(Vector2 direction){
-		weapon.fireWeapon();
+	public Bullet shoot(){
+		Bullet bullet = this.weapon.fireWeapon();
+		return bullet;
 	}
 	
 	public void receiveDamage(float damage){
 		life -= damage;
+	}
+	
+	public void nextAnimation(float delta){
+		timeFrame += delta;
+		
 	}
 }
