@@ -23,12 +23,17 @@ public class Soldier extends LivingGameObject implements SimulatableObject{
 	public boolean faceLeft;
 	public float defense;
 	
-	public Soldier(float x,float y,SoldierType type,boolean faceLeft,float defense){
+	public Soldier(float x,float y,SoldierType type,boolean faceLeft,float defense,Vector2 speed){
 		super(x,y,WIDTH,HEIGHT);
 		this.type = type;
 		state = SoldierState.WALK;
 		this.faceLeft = faceLeft;
 		this.defense = defense;
+	}
+	
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+		this.weapon.setOwner(this);
 	}
 
 	@Override
@@ -40,7 +45,7 @@ public class Soldier extends LivingGameObject implements SimulatableObject{
 	}
 	
 	public void shoot(Vector2 direction){
-		
+		weapon.fireWeapon();
 	}
 	
 	public void receiveDamage(float damage){
