@@ -11,5 +11,6 @@ public class FirstGameWorld {
 	}
 	
 	public void next(float delta) {		
+		tweenManager.update(delta);
 	}
 }
