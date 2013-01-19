@@ -23,9 +23,9 @@ public class Rifle extends Weapon {
 	}
 
 	@Override
-	public boolean fireWeapon() {
+	public Bullet fireWeapon() {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 }

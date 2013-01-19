@@ -11,7 +11,7 @@ public abstract class Weapon{
 	}
 
 	public abstract boolean canShoot(Collection<Soldier> enemies);
-	public abstract boolean fireWeapon();
+	public abstract Bullet fireWeapon();
 	
 	public void setOwner(Soldier owner) {
 		this.owner = owner;
