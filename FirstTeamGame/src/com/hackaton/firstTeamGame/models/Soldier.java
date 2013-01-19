@@ -8,6 +8,10 @@ public class Soldier extends LivingGameObject{
 	public static final float WIDTH = 10f;
 	public static final float HEIGHT = 20f;
 	public static final float LIFE = 20f;
+	public static final float FRAME_WALK_PERIOD = 0.5f;
+	public static final float FRAME_SHOT_PERIOD = 0.5f;
+	public static final int N_WALK_FRAMES = 3;
+	public static final int N_SHOT_FRAMES = 8;
 	
 	public static enum SoldierState{
 		WALK,SHOT,DEAD
@@ -39,22 +43,36 @@ public class Soldier extends LivingGameObject{
 	}
 
 	public void next(float delta, Collection<Bullet> bullets, Collection<Soldier> enemies) {
-		if(this.weapon.canShoot(enemies)) {
-			setShooting();
+		if(this.state == SoldierState.WALK) {
+			if(this.weapon.canShoot(enemies))
+				setShooting();
 		}
-		else {
-			setWalking();
+		if(this.state == SoldierState.SHOT) {
+			if(!this.weapon.canShoot(enemies))
+				setWalking();
 		}
 		
 		if(this.state == SoldierState.WALK) {
 			this.shape.x = this.shape.x + this.speed.x*delta;
-		}
-		else if(this.state == SoldierState.SHOT) {
-			Bullet bullet = this.shoot();
-			if(bullet != null) {
-				bullets.add(bullet);
+			if(timeFrame > FRAME_WALK_PERIOD) {
+				keyFrame = (keyFrame+1) % N_WALK_FRAMES;
+				timeFrame = 0;
 			}
 		}
+		
+		if(this.state == SoldierState.SHOT) {
+			if(timeFrame > FRAME_SHOT_PERIOD) {
+				keyFrame = (keyFrame+1) % N_SHOT_FRAMES;
+				timeFrame = 0;
+				if(keyFrame == 4) {
+					Bullet bullet = this.shoot();
+					bullets.add(bullet);
+					System.out.println("SHOT");
+				}
+			}
+		}
+		
+		timeFrame += delta;
 	}
 	
 	private void setShooting() {
