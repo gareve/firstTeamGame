@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public abstract class Weapon{
 	public float damage;
-	private float range;
+	public float range;
 	public Soldier owner;
 	
 	public Weapon() {
