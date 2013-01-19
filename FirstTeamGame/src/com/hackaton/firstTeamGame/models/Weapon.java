@@ -7,12 +7,13 @@ public abstract class Weapon{
 	private float range;
 	public Soldier owner;
 	
-	public Weapon(float damage,float range, Soldier owner) {
-		this.damage = damage;
-		this.range = range;
-		this.owner = owner;
+	public Weapon() {
 	}
 
 	public abstract boolean canShoot(Collection<Soldier> enemies);
 	public abstract boolean fireWeapon();
+	
+	public void setOwner(Soldier owner) {
+		this.owner = owner;
+	}
 }

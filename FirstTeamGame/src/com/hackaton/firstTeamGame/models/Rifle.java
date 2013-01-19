@@ -7,8 +7,8 @@ public class Rifle extends Weapon {
 
 	Collection<Bullet> bullets;
 	
-	public Rifle(float damage, float range, Soldier owner) {
-		super(2, 2, owner);
+	public Rifle() {
+		super();
 	}
 
 	@Override

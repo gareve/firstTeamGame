@@ -4,8 +4,8 @@ import java.util.Collection;
 
 public class Knife extends Weapon {
 
-	public Knife(float damage, float range, Soldier owner) {
-		super(damage, range, owner);
+	public Knife() {
+		super();
 	}
 
 	@Override
