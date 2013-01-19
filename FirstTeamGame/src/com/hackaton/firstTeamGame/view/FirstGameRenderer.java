@@ -1,17 +1,21 @@
 package com.hackaton.firstTeamGame.view;
 
-import com.badlogic.gdx.Game;
+import java.util.Collection;
+import java.util.Iterator;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.hackaton.firstTeamGame.GameConstants;
 import com.hackaton.firstTeamGame.models.FirstGameWorld;
+import com.hackaton.firstTeamGame.models.Soldier;
 
 public class FirstGameRenderer {
-	private FirstGameWorld firstGameWorld;
+	private FirstGameWorld gameWorld;
 	private OrthographicCamera camera;
 	private ShapeRenderer shapeRenderer = new ShapeRenderer();
 	private SpriteBatch spriteBatch = new SpriteBatch();
@@ -40,13 +44,30 @@ public class FirstGameRenderer {
 	}
 	
 	public void setFirstGameWorld(FirstGameWorld firstGameWorld){
-		this.firstGameWorld = firstGameWorld;
+		this.gameWorld = firstGameWorld;
 	}
-	
+
 	public void render(){
 		initCamera();
+
+		drawSoldiers(gameWorld.soldiersA);
+		drawSoldiers(gameWorld.soldiersB);
 	}
-	
+
+	private void drawSoldiers(Collection<Soldier> soldiers) {
+		
+		shapeRenderer.begin(ShapeType.Rectangle);
+		for(Iterator<Soldier> it = soldiers.iterator();it.hasNext();){
+			Soldier soldier = it.next();
+			if(soldier.faceLeft)
+				shapeRenderer.setColor(0.0f, 1.0f, 0.0f, 1f);
+			else
+				shapeRenderer.setColor(0.0f, 0.0f, 1.0f, 1f);
+			shapeRenderer.rect(soldier.shape.x,soldier.shape.y,soldier.shape.width,soldier.shape.height);
+		}
+		shapeRenderer.end();
+	}
+
 	public void initCamera(){
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		spriteBatch.getProjectionMatrix().setToOrtho2D(0f, 0, GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT);

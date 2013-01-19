@@ -21,5 +21,4 @@ public class Bullet extends LivingGameObject{
 		}
 		return null;
 	}
-
 }

@@ -16,7 +16,7 @@ public class LivingGameObject extends GameObject{
 		keyFrame = 0;
 		timeFrame = 0f;
 	}
-	
+
 	public void setSpeed(Vector2 speed){
 		this.speed = speed;
 	}
