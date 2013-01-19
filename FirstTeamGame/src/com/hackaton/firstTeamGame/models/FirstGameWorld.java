@@ -1,5 +1,7 @@
 package com.hackaton.firstTeamGame.models;
 
+import com.badlogic.gdx.audio.Sound;
+
 import aurelienribon.tweenengine.TweenManager;
 
 public class FirstGameWorld {
