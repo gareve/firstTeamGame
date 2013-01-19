@@ -39,7 +39,7 @@ public class Rifle extends Weapon {
 	@Override
 	public Bullet fireWeapon() {
 		// TODO Auto-generated method stub
-		return new Bullet(owner.shape.x, owner.shape.y, 5, 5);
+		return new Bullet(owner.shape.x, owner.shape.y, 5, 5, this.damage);
 	}
 
 }
