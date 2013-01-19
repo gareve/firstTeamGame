@@ -35,7 +35,7 @@ public class Knife extends Weapon {
 			x1 = owner.shape.x + owner.shape.width;
 		Bullet bullet = new Bullet(x1, owner.speed.y, Soldier.WIDTH, Soldier.HEIGHT, damage);
 		bullet.setSpeed(new Vector2(0, 0));
-		return null;
+		return bullet;
 	}
 
 }
