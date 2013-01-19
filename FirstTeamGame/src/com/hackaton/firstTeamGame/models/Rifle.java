@@ -3,6 +3,9 @@ package com.hackaton.firstTeamGame.models;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.badlogic.gdx.math.Vector2;
+import com.hackaton.firstTeamGame.GameConstants;
+
 public class Rifle extends Weapon {
 	
 	Collection<Bullet> bullets;
@@ -39,7 +42,9 @@ public class Rifle extends Weapon {
 	@Override
 	public Bullet fireWeapon() {
 		// TODO Auto-generated method stub
-		return new Bullet(owner.shape.x, owner.shape.y, 5, 5, this.damage);
+		Bullet bullet = new Bullet(owner.shape.x + owner.shape.width, owner.shape.y + owner.shape.height, 5, 5, this.damage);
+		bullet.setSpeed(new Vector2(GameConstants.BULLET_SPEED, 0));
+		return bullet;
 	}
 
 }
