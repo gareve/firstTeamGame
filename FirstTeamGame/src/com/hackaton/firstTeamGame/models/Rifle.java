@@ -13,7 +13,7 @@ public class Rifle extends Weapon {
 	public Rifle() {
 		super();
 		damage = 5f;
-		range = 50f;
+		range = 2f;
 	}
 
 	@Override

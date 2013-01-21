@@ -2,7 +2,6 @@ package com.hackaton.firstTeamGame.models;
 
 import java.util.Collection;
 
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -17,11 +16,11 @@ public class Knife extends Weapon {
 		float x1;
 		for(Soldier soldier: enemies) {
 			if(owner.faceLeft)
-				x1 = owner.shape.x - 5.0f;
+				x1 = owner.shape.x - owner.shape.width;
 			else
-				x1 = owner.shape.x + 5.0f;
+				x1 = owner.shape.x + owner.shape.width;
 			Rectangle aux = new Rectangle(x1, owner.speed.y, Soldier.WIDTH, Soldier.HEIGHT);
-			if(Intersector.intersectRectangles(aux, soldier.shape))
+			if(aux.contains(soldier.shape))
 				return true;
 		}
 		return false;

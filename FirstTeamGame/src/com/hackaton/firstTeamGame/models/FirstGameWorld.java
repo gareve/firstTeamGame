@@ -39,10 +39,8 @@ public class FirstGameWorld {
 	public void next(float delta) {
 		time += delta;if(time >= SPAWN_TIME){
 			while(time >= SPAWN_TIME)time -= SPAWN_TIME;
-			if(soldiersA.size() < 1)
-				soldiersA.add(createSoldier(true));
-			if(soldiersB.size() < 1)
-				soldiersB.add(createSoldier(false));
+			soldiersA.add(createSoldier(true));
+			soldiersB.add(createSoldier(false));
 		}
 
 		for(Iterator<Soldier> it = soldiersA.iterator();it.hasNext();){
